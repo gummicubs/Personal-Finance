@@ -139,16 +139,15 @@ else:
         rep_inv = int(input())
         total_inv = cash
         for y in range (yrs_left):
-            total_inv = (total_inv + rep_inv)*(1.07)
+            total_inv = (total_inv + rep_inv)*(1.1)
         if total_inv < invest:
             print('Unfortunately, you are not contributing enough towards the market. You must invest more. You will only have $' + str(round((total_inv),2)) + ' by then.')
-            print('You would only have $' + str(round(total_inv,2)) + ' by the time you intend to retire.')
             z = 1
             while total_inv < invest:
                 z = z + 0.05
                 total_inv = cash
                 for y in range (yrs_left):
-                    total_inv = (total_inv + z*rep_inv)*(1.07)
+                    total_inv = (total_inv + z*rep_inv)*(1.1)
             print('However, if you can increase you annual contribution towards the martket to $' + str(round(z*rep_inv,2)) + ', you will be able to save enough.')
         else:
             print('If you keep that up, you will be ready to retire at ' + str(rtage) + '.')
@@ -157,5 +156,5 @@ else:
             rtage = age
             while total_inv < invest:
                 rtage = rtage + 1
-                total_inv = (total_inv + rep_inv)*(1.07)
+                total_inv = (total_inv + rep_inv)*(1.1)
             print('You can even retire earlier if you would like. At this rate you can retire at the age of ' + str(rtage) + '.')
