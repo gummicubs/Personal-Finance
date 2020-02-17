@@ -1,5 +1,208 @@
 import sys
 
+def clean(field):
+    zeros = field.copy()
+    for k, v in zeros.items():
+        if v == 0:
+            del field[k]
+#Remove 0's in a dictionary
+
+def edit(Category, category):
+    while True:
+        print('Above is everything we have collected for you on ' + category + 's so far. Is it accurate?')
+        ans = input().lower()
+        if ans == 'yes':
+            print('Great we shall wrap up this section.')
+            break
+        elif ans == 'no':
+            print('Which of the above ' + category + 's would you like to edit? If you would like to add a new one on, what would you like to call it?')
+            name = input().lower()
+            print('What is the corresponding ' + category + ' for ' + name + '?')
+            key = float(input())
+            Category[name] = key
+            clean(Category)
+            profile(Income, Expense, Savings, Debt , Investment)
+        else:
+            print('I don\'t understand. Would you like to edit your ' + category + ' above?')
+#Edits a dictionary
+
+def annual_expenses():
+    exp = {}
+    print('How much do you spend on housing each month?')
+    exp['housing'] = float(input()) * 12
+    print('How much do you spend on food each month?')
+    exp['food'] = float(input()) * 12
+    print('Do you have a car?')
+    while True:
+        ans = input()
+        if (ans.lower() != 'yes') and (ans.lower() != 'no'):
+            print('Please answer the question. Do you have at least one car?')
+            continue
+        else:
+            break
+    if ans.lower() == 'yes':
+        print('Do you pay for car insurance annually?')
+        while True:
+            ans = input()
+            if ans.lower() == 'yes':
+                print('How much do you pay car insurance per year?')
+                exp['car_insurance']= float(input())
+                break
+            elif ans.lower() == 'no':
+                print('How much do you pay for car insurance per month?')
+                exp['car_insurance'] = float(input()) * 12
+                break
+            else:
+                print('That does not answer my question. Do you pay your car insurance once a year?')
+                continue
+        print('How much do you spend on gas for your car per month?')
+        exp['vehicle_gas'] = float(input()) *12
+    print('How much do you spend on public transportation costs, such train ticket per month?')
+    exp['transportation'] = float(input()) *12
+    print('How much do you spend on your monthly utilities on average?')
+    exp['utilities'] = float(input())*12
+    print('Do you have any other monthly expenses. Examples of such expense might be child care or a monthly subscription?')
+    while True:
+        ans = input()
+        if (ans.lower() != 'yes') and (ans.lower() != 'no'):
+            print('Please answer the question. Do you have any other types of monthly expenses we have not accounted for?')
+            continue
+        elif ans.lower() == 'yes':
+            print('What type of monthly expense is it?')
+            spending = input()
+            print('How much do you spend on ' + spending + ' per month?')
+            exp[spending] = float(input())*12
+            print('Do you have other monthly expenses?')
+        else:
+            break
+    while True:
+        print('What type of expenses do you have that does not occur on a monthly basis? Some examples are life insurance or tuition.')
+        print('If there are no more expenses, please enter "Done".')
+        spending = input()
+        if spending.lower() == 'done':
+            break
+        else:
+            print('How much do you spend on ' + spending + '?')
+            cost = float(input())
+            print('How often do you spend this expense per year?')
+            f = int(input())
+            exp[spending] = cost*f
+    return exp
+#Determines annual expense in a dictionary
+
+def total(source):
+    sum = 0
+    for k, v in source.items():
+        sum += float(str(v))
+    return sum
+#Determines total in a dictionary
+
+def profile(income, expense, savings, debt, investment):
+    print('1. Income '.center(50,'-'))
+    income_sum = 0
+    for k, v in income.items():
+        print('     ' + k.ljust(30,'.') + str(v).rjust(5,' '))
+        income_sum += float(str(v))
+    print('     Total Annual Income'.ljust(35, '.') + str(income_sum).rjust(5,' ') + '\n')
+    print('2. Expense '.center(50,'-'))
+    expense_sum = 0
+    for k, v in expense.items():
+        print('     ' + k.ljust(30,'.') + str(v).rjust(5,' '))
+        expense_sum += float(str(v))
+    print('     Total Annual Expense'.ljust(35, '.') + str(expense_sum).rjust(5,' ') + '\n')
+    print('3. Savings '.center(50,'-'))
+    for k, v in savings.items():
+        print('     ' + k.ljust(30,'.') + str(v).rjust(5,' '))
+    print('4. Debt '.center(50,'-'))
+    for k, v in debt.items():
+        print('     ' + k.ljust(30,'.') + str(v).rjust(5,' '))
+    print('5. Investments '.center(50,'-'))
+    for k, v in investment.items():
+        print('     ' + k.ljust(30,'.') + str(v).rjust(5,' '))
+
+
+print('Welcome to your personal financial center! I shall be your financial advisor. \n Please excuse our appearance as we are under renovation.')
+print('Well, let\'s get started shall we? Let\'s first take a look at your current financial standing.')
+print('We will create a profile for you that covers five difference categories; \n 1. Income \n 2. Expense \n 3. Savings \n 4.  Debt \n 5. Investment')
+Income = {}
+Expense = {}
+Savings{}
+Debt = {}
+Investment = {} 
+
+print('Let\'s start filling out with the first category, income. For our purposes, income is consider money that you receive available for personal consumption.')
+print('Will you be providing pre-tax income or post-tax income?')
+while True:
+    tx = input()
+    if (tx.startswith('pre')) or (tx.startswith('post')):
+        break
+    else:
+        print('Please specify if you will be providing pre-tax or post-tax income. Pre-tax income is income is the gross income on your paystub. Post-tax income is the amount you see on your paycheck.')
+print('How many sources of income, not including any investments, do you have on a monthly basis? These are income you receive approximately 12 times a year.')
+while True:
+    try:
+        x = int(input())
+        break
+    except ValueError:
+        print('Please enter an integer that corresponds to how many sources of monthly income you receive.')
+if x <= 0:
+    print('You\'ve stated you have no sources income on a consistent monthly basis.')
+    x = 0
+elif x == 1:
+    print('Name your source of income.')
+    job = input()
+    print('How much income does ' + job + ' provide you on a monthly basis?')
+    mon_wage = float(input())
+    Income[job] = mon_wage*12
+else:
+    i = 0
+    print('Name one source of your monthly income.')
+    while i < x:
+        job = input()
+        print('How much income does ' + job + ' provide you on a monthly basis?')
+        mon_wage = float(input())
+        Income[job] = mon_wage*12
+        if i == x:
+            break
+        i +=1
+        print('Name another source of your monthly income.')
+while True:
+    print('What is a source of income you receive that we have not accounted for? This income can be from contracted work or annual bonuses.')
+    print('If we have accounted for all your annual income, enter "Done".')
+    job = input()
+    if job == 'done':
+        break
+    else:
+        print('How much income does ' + job + ' provide you?')
+        wage = float(input())
+        print('How many times do you receive this income per year?')
+        f = int(input())
+        Income[job] = wage*f
+
+profile(Income, Expense, Savings, Debt, Investment)
+edit(Income, 'income')
+
+print('Now that we have collected all the information regarding your annual income, let\'s move to the expense category.')
+print('For our purposes, expenses refer to any payments that you make for services and goods.')
+if tx.startswith('pre'):
+    print('Since you are providing pre-tax income, income tax is an expense we have to account for. We will use 30 percent of your annual income, but please keep in mind this value does vary for each individual.')
+Expense = annual_expenses()
+if tx.startswith('pre'):
+    income_sum = total(Income)
+    Expense['income tax'] = 0.3 * income_sum
+
+profile(Income, Expense, Savings, Debt, Investment)
+clean(Expense)
+edit(Expense, 'expense')
+
+income_sum = total(Income)
+expense_sum = total(Expense)
+print('Let\'s take a moment to review these two sections before moving forward, as these are the inflow and outflow of your finances.')
+
+
+
+
+
 def not_serious():
     print('You are not taking this serious. You are on your own.')
 
